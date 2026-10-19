@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCC Digital Library — Login</title>
+</head>
+<body>
+  <main id="loginPage">
+    <header id="brand">
+      <div id="logoMark">◎</div><div id="brandDivider"></div>
+      <div id="brandText">PCC DIGITAL LIBRARY</div>
+    </header>
+    <div id="decorC" class="decoration">C</div>
+    <div id="decorLoop" class="decoration">↻</div>
+    <div id="decorScript" class="decoration">∿</div>
+    <div id="decorWave" class="decoration">〜</div>
+    <section id="loginPanel">
+      <div id="loginCard">
+        <div id="welcome">Welcome</div>
+        <div id="welcomeSub">Sign in to your library account</div>
+        <h1>Login</h1>
+        <form id="loginForm">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="username@gmail.com" autocomplete="username" required>
+          <label for="password">Password</label>
+          <div id="passwordWrap">
+            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+            <button type="button" id="togglePassword" aria-label="Show password">◉</button>
+          </div>
+          <a id="forgotLink" href="#">Forgot Password?</a>
+          <button id="signIn" type="submit">Sign in</button>
+          <div id="orText">or continue with</div>
+          <div id="signupText">Don't have an account yet? <a href="#" id="registerLink">Register for free</a></div>
+          <p id="message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script>
+    // HTML + JavaScript only: the page's appearance is set through JavaScript.
+    const all = (selector, styles) => document.querySelectorAll(selector).forEach(el => Object.assign(el.style, styles));
+    const set = (selector, styles) => { const el = document.querySelector(selector); if (el) Object.assign(el.style, styles); };
+
+    document.body.style.cssText = "margin:0;background:#130303;font-family:Arial,Helvetica,sans-serif;color:#fff";
+    set("#loginPage",{position:"relative",minHeight:"100vh",margin:"0 auto",maxWidth:"1600px",overflow:"hidden",background:"radial-gradient(ellipse at 55% 52%,#681414 0%,#3b0809 48%,#1b0304 100%)",border:"1px solid #302020",boxSizing:"border-box"});
+    set("#brand",{position:"absolute",top:"12px",right:"25px",display:"flex",alignItems:"center",gap:"15px",zIndex:"2"});
+    set("#logoMark",{width:"34px",height:"34px",border:"3px solid #f6b900",borderRadius:"50%",display:"grid",placeItems:"center",color:"#ffcf00",fontSize:"23px",boxShadow:"inset 0 0 0 4px #9c0c13,0 0 0 2px #7b0b0f"});
+    set("#brandDivider",{height:"44px",width:"1px",background:"#d7c8c8"});
+    set("#brandText",{fontSize:"11px",letterSpacing:".3px",whiteSpace:"nowrap"});
+    all(".decoration",{position:"absolute",color:"#fff",opacity:".10",fontWeight:"700",lineHeight:"1",userSelect:"none",pointerEvents:"none"});
+    set("#decorC",{fontSize:"160px",top:"11%",left:"18%",transform:"rotate(-18deg)"});
+    set("#decorLoop",{fontSize:"190px",top:"24%",right:"19%",transform:"rotate(-28deg)"});
+    set("#decorScript",{fontSize:"240px",bottom:"1%",left:"8%",transform:"rotate(-28deg)"});
+    set("#decorWave",{fontSize:"220px",bottom:"6%",right:"-1%",transform:"rotate(-6deg)"});
+    set("#loginPanel",{position:"absolute",width:"min(72%,900px)",height:"min(56vh,500px)",minHeight:"330px",left:"50%",top:"52%",transform:"translate(-50%,-50%)",borderRadius:"13px",background:"rgba(15,0,0,.22)",display:"flex",alignItems:"center",justifyContent:"center"});
+    set("#loginCard",{width:"228px",maxWidth:"calc(100% - 36px)",boxSizing:"border-box",padding:"19px 43px 20px",border:"1px solid #69313a",borderRadius:"17px",background:"linear-gradient(145deg,rgba(63,9,13,.78),rgba(81,14,17,.88))",boxShadow:"0 0 0 1px rgba(255,255,255,.025)",zIndex:"1"});
+    set("#welcome",{textAlign:"center",fontSize:"14px",color:"#e7dfe0",marginBottom:"2px"});
+    set("#welcomeSub",{textAlign:"center",fontSize:"8px",color:"#d2bfc0",whiteSpace:"nowrap",marginBottom:"23px"});
+    set("#loginCard h1",{fontSize:"14px",margin:"0 0 16px",fontWeight:"700"});
+    all("#loginForm label",{display:"block",fontSize:"8px",color:"#e6d8d8",margin:"0 0 6px"});
+    all("#loginForm input",{width:"100%",height:"19px",boxSizing:"border-box",border:"1px solid #d5d0d0",borderRadius:"3px",background:"#fff",color:"#242020",fontSize:"8px",padding:"0 8px",outline:"none"});
+    set("#email",{marginBottom:"12px"});
+    set("#passwordWrap",{position:"relative",display:"flex",alignItems:"center",marginBottom:"6px"});
+    set("#password",{paddingRight:"26px"});
+    set("#togglePassword",{position:"absolute",right:"3px",border:"0",background:"transparent",color:"#a6a6a6",fontSize:"10px",cursor:"pointer",padding:"2px"});
+    set("#forgotLink",{display:"block",fontSize:"7px",color:"#d9c7c7",textDecoration:"none",margin:"7px 0 15px"});
+    set("#signIn",{width:"100%",height:"23px",border:"0",borderRadius:"4px",background:"#260506",color:"#fff",fontSize:"9px",fontWeight:"700",cursor:"pointer"});
+    set("#orText",{fontSize:"7px",textAlign:"center",color:"#cdb9b9",margin:"15px 0"});
+    set("#signupText",{fontSize:"6px",textAlign:"center",color:"#cdbbbb",whiteSpace:"nowrap"});
+    set("#registerLink",{color:"#fff",fontWeight:"700",textDecoration:"none"});
+    set("#message",{fontSize:"9px",lineHeight:"1.4",margin:"10px 0 0",color:"#ffd6a6",textAlign:"center"});
+
+    document.querySelector("#togglePassword").addEventListener("click",()=>{
+      const input=document.querySelector("#password"), showing=input.type==="password";
+      input.type=showing?"text":"password";
+      document.querySelector("#togglePassword").setAttribute("aria-label",showing?"Hide password":"Show password");
+    });
+    document.querySelector("#loginForm").addEventListener("submit",event=>{
+      event.preventDefault();
+      document.querySelector("#message").textContent="Demo only: sign-in is not connected yet for "+document.querySelector("#email").value.trim()+".";
+    });
+    document.querySelector("#forgotLink").addEventListener("click",event=>{
+      event.preventDefault(); document.querySelector("#message").textContent="Password recovery is not connected yet.";
+    });
+    document.querySelector("#registerLink").addEventListener("click",event=>{
+      event.preventDefault(); document.querySelector("#message").textContent="Registration is not connected yet.";
+    });
+    function resizeLogin(){
+      const small=window.innerWidth<600;
+      set("#brand",{right:small?"14px":"25px",top:small?"10px":"12px"});
+      set("#brandText",{fontSize:small?"9px":"11px"});
+      set("#loginPanel",{width:small?"94%":"min(72%,900px)",height:small?"min(65vh,500px)":"min(56vh,500px)"});
+      set("#loginCard",{transform:small?"scale(1.02)":"scale(1)"});
+      set("#decorC",{fontSize:small?"110px":"160px",left:small?"3%":"18%"});
+      set("#decorLoop",{fontSize:small?"130px":"190px",right:small?"0%":"19%"});
+      set("#decorScript",{fontSize:small?"150px":"240px",left:small?"-2%":"8%"});
+      set("#decorWave",{fontSize:small?"130px":"220px"});
+    }
+    window.addEventListener("resize",resizeLogin); resizeLogin();
+  </script>
+</body>
+</html>

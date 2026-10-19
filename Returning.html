@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | Returning Books</title>
+<style>
+:root{--wine:#4b0809;--wine2:#310506;--ink:#242127;--muted:#8f8a9c;--purple:#aaa3d3;--green:#4f8039;--line:#eee9ea}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:#fff;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:#fff;background:linear-gradient(90deg,rgba(0,0,0,.2),transparent 70%),linear-gradient(180deg,var(--wine2),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:10px;padding:15px 18px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;display:grid;place-items:center;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;color:#f8bd48;font-size:21px;font-weight:bold;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 19px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:23px 19px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}.footer-icon{font-size:21px}
+main{flex:1;min-width:0;background:#fff}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 31px;border-bottom:1px solid #f1eff0}
+.search{width:min(360px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 32px 18px}.heading{display:flex;justify-content:space-between;align-items:flex-start}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--purple);font-size:11px}
+.book-stack{font-size:38px;margin-right:3px;margin-top:-8px}
+.success{display:flex;gap:12px;align-items:flex-start;margin:30px 0 24px 20px;color:var(--purple)}
+.check{width:24px;height:24px;display:grid;place-items:center;flex:0 0 24px;border-radius:50%;background:var(--green);color:#fff;font-size:16px;font-weight:bold}
+.success strong{display:block;color:#6b6591;font-size:11px;margin:1px 0 4px}.success p{margin:0;font-size:10px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 20px}
+.filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.date-range{display:flex;align-items:center;gap:8px;font-size:10px;color:#49444c}
+input[type=date],select{height:27px;border:1px solid #a7a3a8;border-radius:3px;background:#fff;color:#514c54;font:10px Arial;padding:3px 7px}
+select{min-width:140px}
+.refresh{height:42px;min-width:150px;border:0;border-radius:8px;background:var(--wine);color:white;display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;font-size:11px}
+.refresh:hover{background:#701316}
+.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:10px}
+thead th{text-align:left;font-weight:400;color:#6d6871;padding:12px 8px;border-bottom:1px solid #f0edef}
+tbody td{padding:11px 8px;border-bottom:1px solid #f5f2f3;color:#5d5861}
+tbody tr:hover{background:#fcf9f9}
+.cover{width:25px;height:34px;border-radius:4px;display:grid;place-items:center;color:#fff;font-size:17px;box-shadow:0 1px 3px #0002}
+.cover.one{background:linear-gradient(135deg,#273e37,#91a68b)}.cover.two{background:linear-gradient(135deg,#f15b53,#f8b0a7)}.cover.three{background:linear-gradient(135deg,#233f68,#5b8bb6)}.cover.four{background:linear-gradient(135deg,#7a777a,#b2a2a6)}.cover.five{background:linear-gradient(135deg,#126d82,#74bac4)}.cover.six{background:linear-gradient(135deg,#005e51,#54a28b)}
+.book-title{font-weight:bold;color:#302c32}
+.status{color:#3c8b54;font-size:10px}
+.view{border:0;background:none;color:#9e3e40;cursor:pointer;font-size:10px;padding:3px 0}
+.view:hover{text-decoration:underline}
+.footer-table{display:flex;justify-content:space-between;align-items:center;color:#a39ccf;font-size:10px;margin-top:24px}
+.pagination{display:flex;align-items:center;gap:7px;color:#77717d}.pagination button{border:1px solid #ddd7db;background:white;border-radius:3px;min-width:20px;height:20px;color:#77717d;cursor:pointer}
+.toast{margin-top:12px;min-height:15px;color:#4f8039;font-size:11px}
+@media(max-width:900px){.sidebar{width:175px;flex-basis:175px}.content{padding:20px}.toolbar{align-items:flex-start;flex-direction:column}.refresh{align-self:flex-end}}
+@media(max-width:650px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:20px 14px}.success{margin:24px 0}.filters{gap:8px}.date-range{flex-wrap:wrap}.toolbar{margin-bottom:12px}.refresh{width:100%}.footer-table{gap:12px;flex-wrap:wrap}.book-stack{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#"><span class="ico">▣</span>Books</a>
+      <a href="#"><span class="ico">♟</span>Members</a>
+      <a href="#" class="active"><span class="ico">↶</span>Returning</a>
+      <a href="#"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span class="footer-icon">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input type="search" placeholder="Hinted search text" aria-label="Search returned books"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <div class="heading">
+        <div><h1>Returning Books</h1><p class="subtitle">View and manage books that have been returned</p></div>
+        <div class="book-stack" aria-hidden="true">📚</div>
+      </div>
+
+      <div class="success">
+        <span class="check">✓</span>
+        <div><strong>Book Returned Successfully!</strong><p>The book has been returned and the member's record has been updated.</p></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filters">
+          <div class="date-range"><span>▦</span><input type="date" id="startDate" aria-label="Start date" value="2025-09-01"><span>–</span><input type="date" id="endDate" aria-label="End date" value="2025-09-30"></div>
+          <select id="memberFilter" aria-label="Filter by member"><option value="">♟ All Members</option><option>Michael</option><option>Felix</option><option>Maybeth</option><option>Lucas Diego</option></select>
+          <select id="bookFilter" aria-label="Filter by book"><option value="">▣ All Books</option><option>White Nights</option><option>Sunrise</option><option>The Great Gatsby</option><option>Becoming</option><option>A Far-Seeing Life</option><option>The Beginning of Truth</option></select>
+        </div>
+        <button class="refresh" id="refreshBtn" type="button"><span>⟳</span>Refresh</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Book Cover</th><th>Title</th><th>Member</th><th>Returned Date</th><th>Due Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="bookRows">
+            <tr data-member="Michael" data-book="White Nights"><td>RT-001</td><td><div class="cover one">▤</div></td><td class="book-title">White Nights</td><td>Michael</td><td>September 5, 2025</td><td>September 5, 2025</td><td class="status">Returned</td><td><button class="view" data-title="White Nights">⊙ View</button></td></tr>
+            <tr data-member="Felix" data-book="Sunrise"><td>RT-002</td><td><div class="cover two">▤</div></td><td class="book-title">Sunrise</td><td>Felix</td><td>September 6, 2025</td><td>September 6, 2025</td><td class="status">Returned</td><td><button class="view" data-title="Sunrise">⊙ View</button></td></tr>
+            <tr data-member="Maybeth" data-book="The Great Gatsby"><td>RT-003</td><td><div class="cover three">▤</div></td><td class="book-title">The Great Gatsby</td><td>Maybeth</td><td>September 6, 2025</td><td>September 6, 2025</td><td class="status">Returned</td><td><button class="view" data-title="The Great Gatsby">⊙ View</button></td></tr>
+            <tr data-member="anneeeeeee" data-book="Becoming"><td>RT-004</td><td><div class="cover four">▤</div></td><td class="book-title">Becoming</td><td>anneeeeeee</td><td>September 6, 2025</td><td>September 6, 2025</td><td class="status">Returned</td><td><button class="view" data-title="Becoming">⊙ View</button></td></tr>
+            <tr data-member="Lucas Diego" data-book="A Far-Seeing Life"><td>RT-005</td><td><div class="cover five">▤</div></td><td class="book-title">A Far-Seeing Life</td><td>Lucas Diego</td><td>September 8, 2025</td><td>September 8, 2025</td><td class="status">Returned</td><td><button class="view" data-title="A Far-Seeing Life">⊙ View</button></td></tr>
+            <tr data-member="Maybeth" data-book="The Beginning of Truth"><td>RT-006</td><td><div class="cover six">▤</div></td><td class="book-title">The Beginning of Truth</td><td>Maybeth</td><td>September 9, 2025</td><td>September 9, 2025</td><td class="status">Returned</td><td><button class="view" data-title="The Beginning of Truth">⊙ View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-table"><span id="resultCount">Showing 1 - 6 of 44 books</span><div class="pagination"><button aria-label="Previous page">‹</button><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button aria-label="Next page">›</button></div></div>
+      <div class="toast" id="toast" role="status"></div>
+    </section>
+  </main>
+</div>
+<script>
+const rows = [...document.querySelectorAll('#bookRows tr')];
+const memberFilter = document.getElementById('memberFilter');
+const bookFilter = document.getElementById('bookFilter');
+const search = document.querySelector('input[type="search"]');
+const toast = document.getElementById('toast');
+
+function applyFilters() {
+  const member = memberFilter.value.toLowerCase();
+  const book = bookFilter.value.toLowerCase();
+  const query = search.value.trim().toLowerCase();
+  let shown = 0;
+  rows.forEach(row => {
+    const matches = (!member || row.dataset.member.toLowerCase() === member) &&
+      (!book || row.dataset.book.toLowerCase() === book) &&
+      (!query || row.innerText.toLowerCase().includes(query));
+    row.hidden = !matches;
+    if (matches) shown++;
+  });
+  document.getElementById('resultCount').textContent = `Showing ${shown ? 1 : 0} - ${shown} of ${shown} books`;
+}
+memberFilter.addEventListener('change', applyFilters);
+bookFilter.addEventListener('change', applyFilters);
+search.addEventListener('input', applyFilters);
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  memberFilter.value = '';
+  bookFilter.value = '';
+  search.value = '';
+  document.getElementById('startDate').value = '2025-09-01';
+  document.getElementById('endDate').value = '2025-09-30';
+  applyFilters();
+  toast.textContent = 'Returned books list refreshed.';
+});
+document.querySelectorAll('.view').forEach(button => button.addEventListener('click', () => {
+  toast.textContent = `Selected record: ${button.dataset.title}. Demo view only.`;
+}));
+document.querySelectorAll('.nav a').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  document.querySelectorAll('.nav a').forEach(item => item.classList.remove('active'));
+  link.classList.add('active');
+}));
+document.querySelectorAll('.pagination button').forEach(button => button.addEventListener('click', () => {
+  toast.textContent = `Page ${button.textContent.trim() || 'selected'} selected (demo only).`;
+}));
+</script>
+</body>
+</html>

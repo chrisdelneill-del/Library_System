@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | My Profile</title>
+<style>
+:root{--wine:#4b0809;--wine-dark:#2c0506;--ink:#29252b;--muted:#898492;--lav:#aaa3d3;--line:#eee9eb;--green:#438755}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:#fff;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:#fff;background:linear-gradient(90deg,#0003,transparent 70%),linear-gradient(180deg,var(--wine-dark),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:9px;padding:15px 17px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;display:grid;place-items:center;color:#f8bd48;font-weight:bold;font-size:21px;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 18px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:22px 18px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}
+main{flex:1;min-width:0;background:#fff}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 30px;border-bottom:1px solid #f1eff0}
+.search{width:min(350px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar-small{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 31px 22px}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--lav);font-size:11px}
+.profile-layout{display:grid;grid-template-columns:minmax(260px, .8fr) minmax(320px,1.2fr);gap:42px;margin-top:44px;align-items:start}
+.profile-card{text-align:center;padding:0 15px}
+.avatar-large{width:112px;height:112px;margin:0 auto 17px;border-radius:50%;display:grid;place-items:center;background:#fff;border:7px solid #4c0809;box-shadow:inset 0 0 0 3px #e8dfe0;color:#741719;font-size:72px;overflow:hidden}
+.profile-card h2{font-size:23px;margin:0 0 4px}.role{font-size:11px;color:#7b7581;margin-bottom:10px}
+.active-dot{display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:11px}
+.active-dot:before{content:"";width:8px;height:8px;background:var(--green);border-radius:50%}
+.contact-list{list-style:none;padding:0;margin:68px 0 0;text-align:left;font-size:11px}
+.contact-list li{display:flex;align-items:center;gap:12px;margin:14px 0;color:#464149}.contact-list .icon{width:15px;text-align:center;font-size:15px}
+.info-heading{font-size:14px;margin:4px 0 24px}
+.info-row{position:relative;padding:0 30px 17px 0;margin-bottom:0}
+.info-row label{display:block;color:#625c66;font-size:11px;margin-bottom:8px}
+.info-row .value{font-size:12px;color:#29252b}
+.edit-one{position:absolute;right:0;top:14px;border:0;background:transparent;color:#8c858f;cursor:pointer;font-size:16px}
+.edit-one:hover{color:var(--wine)}
+.account-info{margin-top:53px}
+.account-info h3{font-size:14px;margin:0 0 18px}
+.account-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.account-item{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.account-item .icon{font-size:16px;color:#29252b}
+.account-item label{display:block;font-size:10px;color:#625c66;margin-bottom:8px}
+.account-item strong{display:block;font-size:11px;font-weight:600;line-height:1.4}
+.status-pill{display:inline-flex;align-items:center;gap:5px;color:var(--green);background:#e9f5ec;border-radius:12px;padding:3px 8px;font-size:10px}
+.status-pill:before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
+.bottom-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:36px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;height:42px;border-radius:7px;cursor:pointer;font-size:11px}
+.btn-outline{border:1px solid #8d5b5d;background:#fff;color:#713234}.btn-primary{border:1px solid var(--wine);background:var(--wine);color:#fff}
+.btn:hover{filter:brightness(.96)}
+.message{min-height:15px;margin-top:12px;color:var(--green);font-size:11px;text-align:right}
+.modal-backdrop{position:fixed;inset:0;background:#16060766;display:none;align-items:center;justify-content:center;padding:20px;z-index:5}
+.modal-backdrop.open{display:flex}.modal{width:min(420px,100%);background:white;border-radius:12px;padding:24px;box-shadow:0 12px 40px #0003}
+.modal h2{font-size:20px;margin:0 0 18px}.modal label{display:block;font-size:12px;margin:12px 0 6px}.modal input{width:100%;height:38px;border:1px solid #c9c2c5;border-radius:5px;padding:8px;font:12px Arial}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.modal .btn{height:36px}
+@media(max-width:950px){.sidebar{width:175px;flex-basis:175px}.content{padding:20px}.profile-layout{gap:24px}.account-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}.contact-list{margin-top:45px}}
+@media(max-width:650px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:19px 14px}.profile-layout{grid-template-columns:1fr;gap:30px;margin-top:30px}.profile-card{padding:0}.avatar-large{width:96px;height:96px;font-size:62px}.contact-list{max-width:260px;margin:28px auto 0}.info-heading{margin-bottom:18px}.account-info{margin-top:38px}.account-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}.bottom-actions{flex-direction:column;margin-top:28px}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#"><span class="ico">▣</span>Books</a>
+      <a href="#"><span class="ico">♟</span>Members</a>
+      <a href="#"><span class="ico">↶</span>Returning</a>
+      <a href="#"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span style="font-size:21px">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input type="search" placeholder="Hinted search text" aria-label="Search"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar-small">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <h1>My Profile</h1>
+      <p class="subtitle">View and manage your account information and preferences</p>
+
+      <section class="profile-layout">
+        <div class="profile-card">
+          <div class="avatar-large" aria-label="Profile avatar">●</div>
+          <h2 id="displayName">Library Admin</h2>
+          <div class="role" id="displayRole">Administrator</div>
+          <div class="active-dot">Active</div>
+          <ul class="contact-list">
+            <li><span class="icon">✉</span><span id="displayEmail">Admin@pccnet.edu.ph</span></li>
+            <li><span class="icon">☎</span><span id="displayPhone">+63 999 999 9999</span></li>
+            <li><span class="icon">▣</span><span>LIB-001</span></li>
+          </ul>
+        </div>
+
+        <div class="personal-info">
+          <h2 class="info-heading">Personal Information</h2>
+          <div class="info-row"><label>Full name</label><div class="value" id="nameValue">♟　Library Admin</div><button class="edit-one" data-field="name" aria-label="Edit full name">✎</button></div>
+          <div class="info-row"><label>Email Address</label><div class="value" id="emailValue">✉　Admin@pccnet.edu.ph</div><button class="edit-one" data-field="email" aria-label="Edit email address">✎</button></div>
+          <div class="info-row"><label>Phone Number</label><div class="value" id="phoneValue">☎　+63 999 999 9999</div><button class="edit-one" data-field="phone" aria-label="Edit phone number">✎</button></div>
+          <div class="info-row"><label>Username</label><div class="value" id="usernameValue">♟　Libraryadmin</div><button class="edit-one" data-field="username" aria-label="Edit username">✎</button></div>
+        </div>
+      </section>
+
+      <section class="account-info">
+        <h3>Account Information</h3>
+        <div class="account-grid">
+          <div class="account-item"><span class="icon">♟</span><div><label>Account Type</label><strong>Administrator</strong></div></div>
+          <div class="account-item"><span class="icon">▣</span><div><label>Member Since</label><strong>September 1, 2025</strong></div></div>
+          <div class="account-item"><span class="icon">◷</span><div><label>Last Login</label><strong>September 1, 2025<br><span style="font-weight:400">11:59 PM</span></strong></div></div>
+          <div class="account-item"><span class="icon">⬟</span><div><label>Account Status</label><strong><span class="status-pill">Active</span></strong></div></div>
+        </div>
+      </section>
+
+      <div class="bottom-actions">
+        <button class="btn btn-outline" id="editProfile"><span>✎</span>Edit Profile</button>
+        <button class="btn btn-primary" id="changePassword"><span>▣</span>Change Password</button>
+      </div>
+      <p class="message" id="message" role="status"></p>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <h2 id="modalTitle">Edit Profile</h2>
+    <form id="modalForm">
+      <div id="modalFields"></div>
+      <div class="modal-actions"><button type="button" class="btn btn-outline" id="cancelModal">Cancel</button><button type="submit" class="btn btn-primary">Save Changes</button></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const profile = {
+  name: 'Library Admin',
+  email: 'Admin@pccnet.edu.ph',
+  phone: '+63 999 999 9999',
+  username: 'Libraryadmin'
+};
+const fields = {
+  name: {label:'Full name',type:'text'},
+  email: {label:'Email address',type:'email'},
+  phone: {label:'Phone number',type:'tel'},
+  username: {label:'Username',type:'text'}
+};
+const backdrop=document.getElementById('modalBackdrop');
+const modalTitle=document.getElementById('modalTitle');
+const modalFields=document.getElementById('modalFields');
+const modalForm=document.getElementById('modalForm');
+const message=document.getElementById('message');
+let currentMode='profile';
+
+function renderProfile(){
+  document.getElementById('displayName').textContent=profile.name;
+  document.getElementById('displayEmail').textContent=profile.email;
+  document.getElementById('displayPhone').textContent=profile.phone;
+  document.getElementById('nameValue').textContent='♟　'+profile.name;
+  document.getElementById('emailValue').textContent='✉　'+profile.email;
+  document.getElementById('phoneValue').textContent='☎　'+profile.phone;
+  document.getElementById('usernameValue').textContent='♟　'+profile.username;
+}
+function openModal(mode,field){
+  currentMode=mode;
+  modalFields.innerHTML='';
+  if(mode==='password'){
+    modalTitle.textContent='Change Password';
+    [['currentPassword','Current password'],['newPassword','New password'],['confirmPassword','Confirm new password']].forEach(([id,label])=>{
+      const lab=document.createElement('label');lab.htmlFor=id;lab.textContent=label;
+      const input=document.createElement('input');input.id=id;input.name=id;input.type='password';input.required=true;
+      modalFields.append(lab,input);
+    });
+  }else{
+    modalTitle.textContent=field?'Edit '+fields[field].label:'Edit Profile';
+    const keys=field?[field]:Object.keys(fields);
+    keys.forEach(key=>{
+      const lab=document.createElement('label');lab.htmlFor=key;lab.textContent=fields[key].label;
+      const input=document.createElement('input');input.id=key;input.name=key;input.type=fields[key].type;input.value=profile[key];input.required=true;
+      modalFields.append(lab,input);
+    });
+  }
+  backdrop.classList.add('open');
+  const first=modalFields.querySelector('input');if(first)first.focus();
+}
+function closeModal(){backdrop.classList.remove('open');modalForm.reset()}
+document.querySelectorAll('.edit-one').forEach(button=>button.addEventListener('click',()=>openModal('profile',button.dataset.field)));
+document.getElementById('editProfile').addEventListener('click',()=>openModal('profile'));
+document.getElementById('changePassword').addEventListener('click',()=>openModal('password'));
+document.getElementById('cancelModal').addEventListener('click',closeModal);
+backdrop.addEventListener('click',event=>{if(event.target===backdrop)closeModal()});
+modalForm.addEventListener('submit',event=>{
+  event.preventDefault();
+  const data=new FormData(modalForm);
+  if(currentMode==='password'){
+    const current=data.get('currentPassword'),next=data.get('newPassword'),confirm=data.get('confirmPassword');
+    if(next!==confirm){message.textContent='New passwords do not match.';return}
+    if(next.length<8){message.textContent='Use at least 8 characters for the new password.';return}
+    message.textContent='Password change validated in this demo only; no password was changed on a server.';
+  }else{
+    for(const key of Object.keys(fields)){
+      if(data.has(key))profile[key]=String(data.get(key)).trim();
+    }
+    renderProfile();
+    message.textContent='Profile updated in this demo.';
+  }
+  closeModal();
+});
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  document.querySelectorAll('.nav a').forEach(item=>item.classList.remove('active'));
+  link.classList.add('active');
+}));
+</script>
+</body>
+</html>

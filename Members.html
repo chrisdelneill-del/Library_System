@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | Members</title>
+<style>
+*{box-sizing:border-box}
+:root{--wine:#320707;--wine2:#4a0d0d;--green:#347747;--muted:#898989;--purple:#8586c7}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#222;color:#171717;font-size:12px}
+.app{display:flex;min-height:100vh;padding:6px;background:#222}
+.sidebar{width:168px;flex-shrink:0;background:linear-gradient(150deg,#240505,#450b0b 65%,#210404);color:#fff;display:flex;flex-direction:column;min-height:calc(100vh - 12px)}
+.brand{height:91px;display:flex;align-items:flex-start;gap:7px;padding:14px 13px;border-bottom:1px solid #260505}
+.crest{width:37px;height:37px;border:2px solid #d7a126;border-radius:50%;background:#941b12;display:grid;place-items:center;color:#ffd65d;font-size:19px;box-shadow:0 0 0 2px #5c0808}
+.brand h1{font-size:20px;line-height:20px;margin:4px 0 2px;font-weight:700;letter-spacing:.2px}
+.brand small{display:block;font-size:10px;letter-spacing:.3px}
+nav{padding-top:0}
+.nav-item{display:flex;align-items:center;gap:17px;height:44px;padding:0 13px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.18);font-size:10px}
+.nav-item:hover,.nav-item.active{background:rgba(0,0,0,.2)}
+.nav-icon{width:24px;text-align:center;font-size:23px;line-height:1}
+.sidebar-footer{margin-top:auto;border-top:2px solid #eee;padding:19px 13px 54px;display:flex;gap:12px;align-items:flex-start;font-size:9px;line-height:13px}
+.sidebar-footer .book{font-size:22px}
+.main{background:#fff;flex:1;min-width:0;position:relative;padding:20px 22px 18px}
+.topbar{height:48px;display:flex;align-items:flex-start;justify-content:space-between}
+.search{width:204px;height:33px;border:1px solid #bbb;border-radius:20px;background:#f8f7f9;display:flex;align-items:center;padding:0 11px;gap:10px;color:#aaa}
+.search input{border:0;outline:0;background:transparent;min-width:0;width:100%;font-size:10px;color:#333}
+.search .glass{font-size:18px}
+.top-actions{display:flex;align-items:center;gap:27px;margin-right:0}
+.bell{font-size:26px;position:relative;line-height:28px}
+.bell:after{content:"";position:absolute;right:0;top:0;background:#e21d24;width:7px;height:7px;border-radius:50%}
+.profile{display:flex;align-items:center;gap:7px;font-size:9px}
+.avatar{width:31px;height:31px;border:3px solid #791b1b;border-radius:50%;display:grid;place-items:center;color:#791b1b;font-size:21px}
+.caret{font-size:15px;margin-left:7px}
+.heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}
+.heading h2{font-size:20px;margin:0 0 3px}
+.heading p{margin:0;color:#7779b7;font-size:9px}
+.filters{display:flex;align-items:center;gap:14px}
+select{height:19px;max-width:120px;border:1px solid #aaa;border-radius:4px;background:white;font-size:8px;color:#333}
+.add-btn{height:33px;min-width:114px;padding:0 12px;border:0;border-radius:6px;background:#2c0606;color:white;font-size:9px;display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer}
+.add-btn span{background:white;color:#321010;border-radius:50%;font-size:17px;font-weight:bold;width:19px;height:19px;display:grid;place-items:center}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 4px 17px}
+.stat{display:flex;align-items:center;gap:9px;min-width:0}
+.stat-icon{width:40px;height:40px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;color:white;font-size:26px}
+.stat-icon.red{background:#791919}.stat-icon.green{background:#347748}.stat-icon.yellow{background:#ffd817}.stat-icon.black{background:#270606}
+.stat-label{color:#777;font-size:9px;margin-bottom:3px;white-space:nowrap}
+.stat-number{font-size:18px;font-weight:bold}
+.section-title{font-size:10px;font-weight:bold;margin:0 0 14px 10px}
+.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+thead th{font-weight:normal;color:#777;font-size:7px;text-align:left;height:22px}
+tbody td{height:37px;font-size:7px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+tbody tr:hover{background:#fafafa}
+th:nth-child(1){width:17%}th:nth-child(2){width:15%}th:nth-child(3){width:15%}th:nth-child(4){width:11%}th:nth-child(5){width:17%}th:nth-child(6){width:12%}th:nth-child(7){width:7%}
+.member-cell{display:flex;align-items:center;gap:17px;color:#161616;font-weight:bold}
+.person{width:22px;text-align:center;font-size:19px;color:#111}
+.status{display:inline-flex;align-items:center;gap:5px;font-size:7px}
+.dot{height:6px;width:6px;border-radius:50%;display:inline-block;background:#4e7d35}
+.status.suspended .dot{background:#751919}
+.status.pending{background:#fff0a4;color:#a78c20;padding:3px 6px;border-radius:4px}
+.status.pending .dot{background:#f1d75d}
+.actions{font-size:15px;color:#111;cursor:pointer;border:0;background:transparent}
+.bottom{position:absolute;bottom:15px;left:32px;right:18px;display:flex;align-items:center;justify-content:space-between;color:#8586c7;font-size:8px}
+.pages{display:flex;align-items:center;gap:5px;color:#555}
+.pages button{background:white;border:1px solid #bbb;border-radius:3px;font-size:8px;width:13px;height:13px;padding:0;cursor:pointer}
+.pages button.current{background:#eee}
+.modal-backdrop{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal-backdrop.show{display:flex}
+.modal{width:min(400px,100%);background:#fff;border-radius:10px;padding:22px;box-shadow:0 10px 40px #0004}
+.modal h3{margin:0 0 16px;color:var(--wine);font-size:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid label{display:block;font-size:11px;color:#555}
+.form-grid input,.form-grid select{display:block;width:100%;height:34px;margin-top:5px;padding:7px;border:1px solid #ccc;border-radius:5px;font-size:12px;max-width:none}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.modal-actions button{border:0;border-radius:5px;padding:9px 14px;cursor:pointer}
+.cancel{background:#eee}.save{background:var(--wine);color:white}
+@media(max-width:760px){.sidebar{width:62px}.brand{padding:12px 10px;height:70px}.brand-text,.nav-label,.sidebar-footer .footer-text{display:none}.brand{justify-content:center}.crest{width:35px;height:35px}.nav-item{justify-content:center;padding:0;height:48px}.nav-icon{font-size:22px}.sidebar-footer{justify-content:center;padding:18px 0 28px}.main{padding:15px 12px 45px}.heading-row{align-items:flex-start;flex-direction:column}.filters{width:100%;flex-wrap:wrap}.stats{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px}.top-actions{gap:12px}.search{width:min(205px,55%)}.bottom{left:12px;right:12px}}
+@media(max-width:460px){.profile span:not(.avatar):not(.caret){display:none}.stats{gap:12px}.stat-icon{width:34px;height:34px;font-size:22px}.stat-number{font-size:16px}.form-grid{grid-template-columns:1fr}table{min-width:650px}.main{overflow:hidden}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="crest">✹</div>
+      <div class="brand-text"><h1>PCC</h1><small>DIGITAL LIBRARY</small></div>
+    </div>
+    <nav>
+      <a class="nav-item" href="#" data-page="Home"><span class="nav-icon">◆</span><span class="nav-label">Home</span></a>
+      <a class="nav-item" href="#" data-page="Books"><span class="nav-icon">▱</span><span class="nav-label">Books</span></a>
+      <a class="nav-item active" href="#" data-page="Members"><span class="nav-icon">♟</span><span class="nav-label">Members</span></a>
+      <a class="nav-item" href="#" data-page="Returning"><span class="nav-icon">↩</span><span class="nav-label">Returning</span></a>
+      <a class="nav-item" href="#" data-page="Borrowing"><span class="nav-icon">▣</span><span class="nav-label">Borrowing</span></a>
+      <a class="nav-item" href="#" data-page="Settings"><span class="nav-icon">⚙</span><span class="nav-label">Settings</span></a>
+    </nav>
+    <div class="sidebar-footer"><span class="book">▤</span><span class="footer-text">Better Readers<br>Build a Brighter<br>Future*</span></div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="search"><span>☰</span><input id="searchInput" type="search" placeholder="Hinted search text" aria-label="Search members"><span class="glass">⌕</span></div>
+      <div class="top-actions"><span class="bell" title="Notifications">♧</span><div class="profile"><div class="avatar">●</div><span>Profile</span><span class="caret">⌄</span></div></div>
+    </div>
+    <div class="heading-row">
+      <div class="heading"><h2>Members</h2><p>Manage library members and accounts.</p></div>
+      <div class="filters">
+        <select id="memberFilter" aria-label="Filter by member type"><option value="All Members">All Members</option><option>Student</option><option>Faculty</option><option>Staff</option></select>
+        <select id="bookFilter" aria-label="Filter by book"><option value="All Books">All Books</option><option>Has borrowed books</option><option>No borrowed books</option></select>
+        <button class="add-btn" id="openModal"><span>+</span> Add Member</button>
+      </div>
+    </div>
+    <section class="stats">
+      <div class="stat"><div class="stat-icon red">♟</div><div><div class="stat-label">Total Members</div><div class="stat-number" id="totalCount">456</div></div></div>
+      <div class="stat"><div class="stat-icon green">♟</div><div><div class="stat-label">Active Members</div><div class="stat-number" id="activeCount">320</div></div></div>
+      <div class="stat"><div class="stat-icon yellow">♧</div><div><div class="stat-label">Pending Approval</div><div class="stat-number" id="pendingCount">18</div></div></div>
+      <div class="stat"><div class="stat-icon black">♧</div><div><div class="stat-label">Suspended</div><div class="stat-number" id="suspendedCount">17</div></div></div>
+    </section>
+    <h3 class="section-title">Member Directory</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Member</th><th>Member ID</th><th>Email</th><th>Role</th><th>Date Joined</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="memberRows"></tbody>
+      </table>
+    </div>
+    <div class="bottom"><span id="showingText">Showing 1 - 6 of 456 members</span><div class="pages"><button aria-label="Previous page">&lt;</button><button class="current">1</button><button>2</button><button>3</button><button>4</button><button>5</button><button aria-label="Next page">&gt;</button></div></div>
+  </main>
+</div>
+<div class="modal-backdrop" id="memberModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Add New Member</h3>
+    <form id="memberForm">
+      <div class="form-grid">
+        <label>Full name<input name="name" required placeholder="e.g. Maria Santos"></label>
+        <label>Email address<input name="email" type="email" required placeholder="name@example.com"></label>
+        <label>Role<select name="role"><option>Student</option><option>Faculty</option><option>Staff</option></select></label>
+        <label>Status<select name="status"><option>Active</option><option>Pending</option><option>Suspended</option></select></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="cancel" id="closeModal">Cancel</button><button class="save" type="submit">Save Member</button></div>
+    </form>
+  </div>
+</div>
+<script>
+const members = [
+ {name:"Maria Santos",id:"PCC-3028-001",email:"Maria.santos@pcc.edu.ph",role:"Student",date:"September 6, 2025",status:"Active"},
+ {name:"John Reyes",id:"PCC-3028-002",email:"johnreyes@pcc.edu.ph",role:"Faculty",date:"September 14, 2025",status:"Active"},
+ {name:"Angela Cruz",id:"PCC-3028-003",email:"Angelacruz@pcc.edu.ph",role:"Student",date:"September 24, 2025",status:"Pending"},
+ {name:"Mark Dela Rosa",id:"PCC-3028-004",email:"Markdelarosa@pcc.edu.ph",role:"Staff",date:"September 22, 2025",status:"Active"},
+ {name:"Sofia Mendoza",id:"PCC-3028-005",email:"Sofiamendoza@pcc.edu.ph",role:"Student",date:"September 21, 2025",status:"Suspended"},
+ {name:"Carlo Garcia",id:"PCC-3028-006",email:"Carlogarcia@pcc.edu.ph",role:"Faculty",date:"September 15, 2025",status:"Active"}
+];
+const rows = document.getElementById("memberRows");
+const searchInput = document.getElementById("searchInput");
+const memberFilter = document.getElementById("memberFilter");
+function renderMembers(){
+  const query = searchInput.value.toLowerCase().trim();
+  const role = memberFilter.value;
+  const visible = members.filter(m =>
+    (m.name.toLowerCase().includes(query) || m.id.toLowerCase().includes(query) || m.email.toLowerCase().includes(query)) &&
+    (role === "All Members" || m.role === role)
+  );
+  rows.innerHTML = "";
+  visible.forEach((m,index)=>{
+    const tr = document.createElement("tr");
+    const statusClass = m.status === "Suspended" ? "suspended" : m.status === "Pending" ? "pending" : "";
+    tr.innerHTML = `
+      <td><div class="member-cell"><span class="person">${m.role==="Faculty"?"♙":"♟"}</span><span>${escapeHTML(m.name)}</span></div></td>
+      <td>${escapeHTML(m.id)}</td><td>${escapeHTML(m.email)}</td><td>${escapeHTML(m.role)}</td><td>${escapeHTML(m.date)}</td>
+      <td><span class="status ${statusClass}"><i class="dot"></i>${m.status==="Pending"?"Active":escapeHTML(m.status)}</span></td>
+      <td><button class="actions" aria-label="Remove ${escapeHTML(m.name)}" data-index="${members.indexOf(m)}">•••</button></td>`;
+    rows.appendChild(tr);
+  });
+  document.getElementById("showingText").textContent = visible.length ? `Showing 1 - ${visible.length} of ${members.length} displayed members` : "No members found";
+  document.getElementById("totalCount").textContent = 456 + Math.max(0,members.length-6);
+  document.getElementById("activeCount").textContent = 320 + members.filter(m=>m.status==="Active" && !["Maria Santos","John Reyes","Mark Dela Rosa","Carlo Garcia"].includes(m.name)).length;
+  document.getElementById("pendingCount").textContent = 18 + members.filter(m=>m.status==="Pending" && m.name!=="Angela Cruz").length;
+  document.getElementById("suspendedCount").textContent = 17 + members.filter(m=>m.status==="Suspended" && m.name!=="Sofia Mendoza").length;
+}
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+searchInput.addEventListener("input",renderMembers);
+memberFilter.addEventListener("change",renderMembers);
+const modal = document.getElementById("memberModal");
+document.getElementById("openModal").addEventListener("click",()=>modal.classList.add("show"));
+document.getElementById("closeModal").addEventListener("click",()=>modal.classList.remove("show"));
+modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")});
+document.getElementById("memberForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const form = new FormData(e.target);
+  const next = String(members.length+1).padStart(3,"0");
+  const today = new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});
+  members.push({name:form.get("name"),id:`PCC-3028-${next}`,email:form.get("email"),role:form.get("role"),date:today,status:form.get("status")});
+  e.target.reset();modal.classList.remove("show");renderMembers();
+});
+rows.addEventListener("click",e=>{
+  const button=e.target.closest(".actions");
+  if(!button)return;
+  const index=Number(button.dataset.index);
+  if(confirm(`Remove ${members[index].name} from this sample directory?`)){members.splice(index,1);renderMembers();}
+});
+document.querySelectorAll(".nav-item").forEach(item=>item.addEventListener("click",e=>{
+  e.preventDefault();
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+  item.classList.add("active");
+}));
+renderMembers();
+</script>
+</body>
+</html>

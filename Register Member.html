@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | Register New Member</title>
+<style>
+:root{--wine:#4b0809;--wine-dark:#2c0506;--ink:#29252b;--muted:#898492;--lav:#aaa3d3;--line:#eee9eb}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:#fff;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:#fff;background:linear-gradient(90deg,#0003,transparent 70%),linear-gradient(180deg,var(--wine-dark),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:9px;padding:15px 17px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;display:grid;place-items:center;color:#f8bd48;font-weight:bold;font-size:21px;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 18px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:22px 18px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}
+main{flex:1;min-width:0;background:#fff}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 30px;border-bottom:1px solid #f1eff0}
+.search{width:min(350px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar-small{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 31px 24px}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--lav);font-size:11px}
+.member-form{display:grid;grid-template-columns:minmax(230px,.8fr) minmax(240px,1fr) minmax(240px,1fr);column-gap:35px;row-gap:18px;margin-top:50px}
+.photo-column{grid-row:1 / span 2;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:25px}
+.member-avatar{width:92px;height:112px;position:relative;display:grid;place-items:center;color:#8b1c1c;font-size:82px;line-height:1}
+.add-badge{position:absolute;right:-5px;bottom:5px;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#8b1c1c;color:#fff;border:3px solid white;font-size:34px;line-height:1}
+.photo-label{font-size:11px;font-weight:bold;margin-top:4px}
+.upload-box{margin-top:58px;display:flex;flex-direction:column;align-items:center;gap:7px;color:#4a454d;font-size:11px}
+.upload-icon{font-size:25px;color:#111}
+.upload-box strong{font-size:11px}.upload-box small{color:#898492;font-size:10px}
+.file-picker{margin-top:18px;display:flex;align-items:center;gap:5px;font-size:11px;color:#29252b;cursor:pointer}
+.file-picker input{max-width:175px;font-size:10px}
+.field{min-width:0;margin-bottom:1px}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:10px;color:#28242a}
+.required{color:#a51c20}
+.field input,.field select{width:100%;height:31px;border:0;border-bottom:1px solid #e5e0e3;border-radius:0;background:#fff;padding:5px 0;color:#333;font:12px Arial;outline:none}
+.field input:focus,.field select:focus{border-bottom:1px solid #7e1719}
+.field input::placeholder{color:#9b969f}
+.field .inline-icon{font-size:13px;margin-right:7px;color:#4f4951}
+.field input.with-icon{padding-left:1px}
+.field-row{display:flex;align-items:center;gap:7px;color:#37323a;font-size:12px;min-height:19px}
+.readonly{font-size:12px;color:#39343c}
+.actions{display:flex;justify-content:flex-end;gap:14px;margin-top:58px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 19px;height:42px;min-width:125px;border-radius:7px;cursor:pointer;font-size:11px}
+.btn-outline{border:1px solid #8d5b5d;background:#fff;color:#713234}.btn-primary{border:1px solid var(--wine);background:var(--wine);color:#fff}
+.btn:hover{filter:brightness(.96)}
+.message{min-height:16px;margin-top:12px;color:#4c8048;font-size:11px;text-align:right}
+@media(max-width:1050px){.sidebar{width:175px;flex-basis:175px}.content{padding:20px}.member-form{column-gap:22px;grid-template-columns:minmax(180px,.7fr) minmax(190px,1fr) minmax(190px,1fr)}}
+@media(max-width:800px){.member-form{grid-template-columns:1fr 1fr;gap:24px}.photo-column{grid-row:1 / span 2}.actions{margin-top:35px}.upload-box{margin-top:35px}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:19px 14px}.member-form{grid-template-columns:1fr;gap:21px;margin-top:30px}.photo-column{grid-row:auto;padding-top:0}.upload-box{margin-top:24px}.file-picker{margin-top:8px}.actions{flex-direction:column-reverse;margin-top:28px}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#"><span class="ico">▣</span>Books</a>
+      <a href="#" class="active"><span class="ico">♟</span>Members</a>
+      <a href="#"><span class="ico">↶</span>Returning</a>
+      <a href="#"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span style="font-size:21px">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input type="search" placeholder="Hinted search text" aria-label="Search"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar-small">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <h1>Register New Member</h1>
+      <p class="subtitle">Enter member information to create a library account.</p>
+
+      <form id="memberForm">
+        <div class="member-form">
+          <div class="photo-column">
+            <div class="member-avatar" aria-hidden="true">♟<span class="add-badge">+</span></div>
+            <div class="photo-label">Member Photo</div>
+            <div class="upload-box">
+              <span class="upload-icon">☁</span>
+              <strong>Upload Photo</strong>
+              <small>PNG, JPG or JPEG (Max 5MB)</small>
+              <label class="file-picker">▣ <input type="file" id="photo" accept="image/png,image/jpeg"></label>
+              <img id="photoPreview" alt="Selected member photo preview" style="display:none;width:90px;height:90px;border-radius:50%;object-fit:cover;margin-top:10px">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fullName">Full Name <span class="required">*</span></label>
+            <div class="field-row"><span>♟</span><input id="fullName" name="fullName" placeholder="e.g. John Cruz" required></div>
+          </div>
+          <div class="field">
+            <label for="studentId">Student/Employee ID <span class="required">*</span></label>
+            <div class="field-row"><span>▤</span><input id="studentId" name="studentId" placeholder="e.g. 2025-00123" required></div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <div class="field-row"><span>✉</span><input id="email" name="email" type="email" placeholder="member@pccnet.edu.ph" required></div>
+          </div>
+          <div class="field">
+            <label for="contact">Contact Number</label>
+            <div class="field-row"><span>☎</span><input id="contact" name="contact" type="tel" placeholder="+63 999 999 9999"></div>
+          </div>
+
+          <div class="field">
+            <label for="memberType">Member Type <span class="required">*</span></label>
+            <div class="field-row"><span>♟</span><select id="memberType" name="memberType" required><option value="Student">Student</option><option value="Faculty">Faculty</option><option value="Staff">Staff</option><option value="Guest">Guest</option></select></div>
+          </div>
+          <div class="field">
+            <label for="department">Department/Program</label>
+            <div class="field-row"><span>▣</span><input id="department" name="department" placeholder="e.g. Information Technology"></div>
+          </div>
+
+          <div class="field">
+            <label for="yearLevel">Year Level</label>
+            <div class="field-row"><span>♟</span><select id="yearLevel" name="yearLevel"><option>2nd Year</option><option>1st Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option><option>N/A</option></select></div>
+          </div>
+          <div class="field">
+            <label>Date Registered</label>
+            <div class="field-row"><span>▦</span><span class="readonly" id="registeredDate"></span></div>
+          </div>
+
+          <div class="field">
+            <label> </label>
+            <div class="field-row"></div>
+          </div>
+          <div class="field">
+            <label>Account Status <span class="required">*</span></label>
+            <div class="field-row"><span>♟</span><select id="accountStatus" name="accountStatus"><option>Active</option><option>Inactive</option></select></div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="reset" class="btn btn-outline" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary"><span style="font-size:17px">⊕</span>Register Member</button>
+        </div>
+        <p class="message" id="message" role="status"></p>
+      </form>
+    </section>
+  </main>
+</div>
+<script>
+const form=document.getElementById('memberForm');
+const message=document.getElementById('message');
+const photoInput=document.getElementById('photo');
+const photoPreview=document.getElementById('photoPreview');
+document.getElementById('registeredDate').textContent=new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric'}).format(new Date());
+
+photoInput.addEventListener('change',()=>{
+  const file=photoInput.files[0];
+  if(!file){photoPreview.style.display='none';return}
+  if(!['image/png','image/jpeg'].includes(file.type)){
+    message.textContent='Please choose a PNG or JPG image.';
+    photoInput.value='';photoPreview.style.display='none';return;
+  }
+  if(file.size>5*1024*1024){
+    message.textContent='Photo must be 5MB or smaller.';
+    photoInput.value='';photoPreview.style.display='none';return;
+  }
+  photoPreview.src=URL.createObjectURL(file);
+  photoPreview.style.display='block';
+  message.textContent='';
+});
+form.addEventListener('submit',event=>{
+  event.preventDefault();
+  if(!form.reportValidity())return;
+  const data=Object.fromEntries(new FormData(form).entries());
+  message.textContent=`Member "${data.fullName}" is ready to register. Demo only — connect a database to save this record.`;
+});
+document.getElementById('cancelBtn').addEventListener('click',()=>{
+  message.textContent='Form cleared.';
+  photoPreview.style.display='none';
+  photoPreview.removeAttribute('src');
+});
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  document.querySelectorAll('.nav a').forEach(item=>item.classList.remove('active'));
+  link.classList.add('active');
+}));
+</script>
+</body>
+</html>

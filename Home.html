@@ -1,0 +1,195 @@
+<!DOCTYPE html>h
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCC Digital Library Dashboard</title>
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div id="brand">
+        <div id="brandMark">◎</div>
+        <div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div>
+      </div>
+      <nav id="navigation">
+        <a href="#" class="nav-link active"><span>⌂</span> Home</a>
+        <a href="#" class="nav-link"><span>▤</span> Books</a>
+        <a href="#" class="nav-link"><span>♟</span> Members</a>
+        <a href="#" class="nav-link"><span>↩</span> Returning</a>
+        <a href="#" class="nav-link"><span>▣</span> Borrowing</a>
+        <a href="#" class="nav-link"><span>⚙</span> Settings</a>
+      </nav>
+      <div id="sidebarFooter"><span>▤</span><div>Better Readers,<br>Build a Brighter<br>Future™</div></div>
+    </aside>
+
+    <main id="main">
+      <header id="topbar">
+        <label id="searchBox"><span>☰</span><input id="searchInput" type="search" placeholder="Hinted search text"><span>⌕</span></label>
+        <div id="topActions"><span id="notification">♧</span><span id="adminAvatar">●</span><span>Profile</span><span>⌄</span></div>
+      </header>
+
+      <div id="content">
+        <section id="welcome">
+          <div><h1>Good day, Admin!</h1><p>Manage your library, track books, and serve your readers<br>all in one place.</p></div>
+          <div id="quickArea">
+            <div id="booksArt">📚</div>
+            <div><strong id="quickTitle">Quick Actions</strong><div id="quickActions">
+              <button class="quick-action"><span>▮▮</span>Add Books</button>
+              <button class="quick-action"><span>♟＋</span>Register Member</button>
+            </div></div>
+          </div>
+        </section>
+
+        <section id="stats">
+          <div class="stat"><div class="stat-icon">▤</div><div class="stat-label">Total Books</div><strong>1,221</strong><small>Available in the library</small></div>
+          <div class="stat"><div class="stat-icon">♟♟</div><div class="stat-label">Total Members</div><strong>456</strong><small>Registered users</small></div>
+          <div class="stat"><div class="stat-icon">⟳</div><div class="stat-label">Books Borrowed</div><strong>67</strong><small>This month</small></div>
+          <div class="stat"><div class="stat-icon">▦</div><div class="stat-label">Overdue Books</div><strong>13</strong><small>Needs attention</small></div>
+        </section>
+
+        <div id="lowerGrid">
+          <section>
+            <h2 class="section-heading">Recent Books <a href="#" class="view-all">View All &gt;</a></h2>
+            <table id="bookTable">
+              <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Category</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><span class="cover cover-one">▥</span></td><td class="book-title">Whiskey</td><td>T. Kira Madden</td><td>Fiction</td><td class="available">Available</td></tr>
+                <tr><td><span class="cover cover-two">▤</span></td><td class="book-title">Illuminae</td><td>Jay Kristoff</td><td>Multimedia</td><td class="available">Available</td></tr>
+                <tr><td><span class="cover cover-three">▥</span></td><td class="book-title">The Great Gatsby</td><td>Jesmyn Ward</td><td>Academic Journals</td><td class="available">Available</td></tr>
+                <tr><td><span class="cover cover-four">▤</span></td><td class="book-title">Becoming</td><td>Michelle Obama</td><td>Non-Fiction</td><td class="checked-out">Checked Out</td></tr>
+                <tr><td><span class="cover cover-five">▥</span></td><td class="book-title">A Far-Flung Life</td><td>M.L. Stedman</td><td>Fiction</td><td class="available">Available</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h2 class="section-heading">Recent Activities <a href="#" class="view-all">View All &gt;</a></h2>
+            <div id="activities">
+              <div class="activity"><span class="activity-icon green">▤✓</span><div><strong>New Book Added</strong><small>Night</small></div><time>2h ago</time></div>
+              <div class="activity"><span class="activity-icon blue">♟＋</span><div><strong>Member Registered</strong><small>Gutierrez</small></div><time>3h ago</time></div>
+              <div class="activity"><span class="activity-icon yellow">⇩</span><div><strong>Book Borrowed</strong><small>The Alchemist</small></div><time>1h ago</time></div>
+              <div class="activity"><span class="activity-icon orange">!</span><div><strong>Overdue Book</strong><small>Martial</small></div><time>1h ago</time></div>
+              <div class="activity"><span class="activity-icon green">↶</span><div><strong>Book Returned</strong><small>Clean Code</small></div><time>9h ago</time></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // All dashboard appearance is applied with JavaScript; there is no CSS stylesheet.
+    const setStyles = (selector, styles) => {
+      document.querySelectorAll(selector).forEach(element => Object.assign(element.style, styles));
+    };
+    const style = (selector, styles) => {
+      const element = document.querySelector(selector);
+      if (element) Object.assign(element.style, styles);
+    };
+
+    document.body.style.cssText = "margin:0;font-family:Arial,Helvetica,sans-serif;color:#191719;background:#f3f3f4";
+    style("#app", {display:"flex", minHeight:"100vh", maxWidth:"1600px", margin:"0 auto", background:"#fff", overflow:"hidden", boxShadow:"0 0 24px #00000012"});
+    style("#sidebar", {width:"215px", flex:"0 0 215px", display:"flex", flexDirection:"column", color:"#fff", background:"linear-gradient(160deg,#360504 0%,#4b0807 45%,#220302 100%)"});
+    style("#brand", {display:"flex", alignItems:"center", gap:"10px", minHeight:"108px", padding:"20px 18px", borderBottom:"1px solid #ffffff14"});
+    style("#brandMark", {width:"40px", height:"40px", border:"3px solid #ffbf00", borderRadius:"50%", color:"#ffcf00", display:"grid", placeItems:"center", fontSize:"24px", boxShadow:"inset 0 0 0 4px #8f1014,0 0 0 2px #8f1014"});
+    setStyles("#brand strong", {display:"block", fontSize:"20px", letterSpacing:".4px"});
+    setStyles("#brand small", {display:"block", marginTop:"2px", fontSize:"10px", letterSpacing:".7px"});
+    style("#navigation", {padding:"12px 0"});
+    setStyles(".nav-link", {minHeight:"51px", display:"flex", alignItems:"center", gap:"14px", padding:"0 18px", color:"#f8eeee", textDecoration:"none", fontSize:"12px", borderBottom:"1px solid #ffffff0b"});
+    setStyles(".nav-link span", {width:"23px", textAlign:"center", fontSize:"22px"});
+    style(".nav-link.active", {background:"#760d0e", boxShadow:"inset 4px 0 #10b9ee", fontWeight:"700"});
+    style("#sidebarFooter", {marginTop:"auto", minHeight:"115px", borderTop:"2px solid #ffffffb0", padding:"22px 20px", display:"flex", gap:"12px", alignItems:"flex-start", fontSize:"11px", lineHeight:"1.5"});
+    style("#sidebarFooter span", {fontSize:"22px"});
+    style("#main", {minWidth:"0", flex:"1", background:"#fff"});
+    style("#topbar", {height:"81px", borderBottom:"1px solid #eeeeef", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 27px", gap:"20px"});
+    style("#searchBox", {width:"min(350px,45%)", height:"39px", border:"1px solid #c9c6cc", borderRadius:"22px", background:"#f8f7f9", display:"flex", alignItems:"center", gap:"10px", padding:"0 14px", color:"#a09ca5"});
+    style("#searchInput", {width:"100%", minWidth:"0", border:"0", outline:"0", background:"transparent", color:"#333", fontSize:"12px"});
+    style("#topActions", {display:"flex", alignItems:"center", gap:"12px", fontSize:"11px"});
+    style("#notification", {position:"relative", fontSize:"22px", marginRight:"12px"});
+    style("#adminAvatar", {width:"34px", height:"34px", border:"3px solid #8d1115", borderRadius:"50%", color:"#8d1115", display:"grid", placeItems:"center", fontSize:"19px"});
+    style("#content", {padding:"30px"});
+    style("#welcome", {display:"flex", alignItems:"flex-start", justifyContent:"space-between", gap:"20px", marginBottom:"20px"});
+    style("#welcome h1", {fontSize:"22px", margin:"0 0 4px"});
+    style("#welcome p", {color:"#77768a", fontSize:"11px", lineHeight:"1.5", margin:"0"});
+    style("#quickArea", {display:"flex", alignItems:"center", gap:"30px", paddingTop:"2px"});
+    style("#booksArt", {fontSize:"49px", lineHeight:"1.15"});
+    style("#quickTitle", {fontSize:"10px", display:"block", textAlign:"center", marginBottom:"12px"});
+    style("#quickActions", {display:"flex", gap:"20px"});
+    setStyles(".quick-action", {minWidth:"75px", border:"0", background:"transparent", cursor:"pointer", textAlign:"center", fontSize:"9px", fontWeight:"600", color:"#191719"});
+    setStyles(".quick-action span", {display:"block", color:"#941d19", fontSize:"25px", marginBottom:"5px"});
+    style("#stats", {display:"grid", gridTemplateColumns:"repeat(4,minmax(0,1fr))", gap:"17px", margin:"14px 0 28px"});
+    setStyles(".stat", {textAlign:"center", minWidth:"0"});
+    setStyles(".stat-icon", {width:"42px", height:"42px", margin:"0 auto 7px", borderRadius:"50%", color:"#fff", display:"grid", placeItems:"center", fontSize:"23px", fontWeight:"700"});
+    const statColors = ["#8a1518","#347b4b","#ffda17","#a84cff"];
+    document.querySelectorAll(".stat-icon").forEach((el,i) => el.style.background = statColors[i]);
+    setStyles(".stat-label", {fontSize:"10px", color:"#73717a", marginBottom:"4px"});
+    setStyles(".stat strong", {display:"block", fontSize:"20px", marginBottom:"3px"});
+    setStyles(".stat small", {display:"block", fontSize:"9px", color:"#777"});
+    style("#lowerGrid", {display:"grid", gridTemplateColumns:"minmax(0,1.25fr) minmax(220px,.8fr)", gap:"32px"});
+    setStyles(".section-heading", {display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"12px", margin:"0 0 12px"});
+    setStyles(".view-all", {color:"#4137a1", fontSize:"9px", fontWeight:"600", textDecoration:"none"});
+    style("#bookTable", {width:"100%", borderCollapse:"collapse", tableLayout:"fixed"});
+    setStyles("#bookTable th", {textAlign:"left", fontSize:"9px", color:"#777780", fontWeight:"500", padding:"0 7px 9px", borderBottom:"1px solid #f0eef0"});
+    setStyles("#bookTable td", {padding:"7px", borderBottom:"1px solid #f5f4f5", verticalAlign:"middle", fontSize:"9px", color:"#777780", overflowWrap:"anywhere"});
+    setStyles(".book-title", {color:"#28242a", fontWeight:"600"});
+    setStyles(".cover", {width:"22px", height:"30px", borderRadius:"3px", display:"grid", placeItems:"center", color:"#fff", fontSize:"15px", boxShadow:"1px 2px 3px #0002"});
+    const coverColors = [[".cover-one","linear-gradient(150deg,#152b1c,#9e8a52)"],[".cover-two","linear-gradient(150deg,#f9e2ce,#d94c32)"],[".cover-three","linear-gradient(150deg,#183e79,#4687c7)"],[".cover-four","linear-gradient(150deg,#8bc5d5,#e7d3b8)"],[".cover-five","linear-gradient(150deg,#0e6176,#3db5b2)"]];
+    coverColors.forEach(([selector,color]) => style(selector,{background:color}));
+    setStyles(".available", {color:"#38814e"});
+    setStyles(".checked-out", {color:"#e1ae00"});
+    style("#activities", {display:"flex", flexDirection:"column", gap:"12px"});
+    setStyles(".activity", {display:"grid", gridTemplateColumns:"37px minmax(0,1fr) auto", gap:"10px", alignItems:"center"});
+    setStyles(".activity-icon", {width:"34px", height:"34px", borderRadius:"50%", color:"#fff", display:"grid", placeItems:"center", fontSize:"18px"});
+    setStyles(".activity-icon.green", {background:"#347b4b"});
+    setStyles(".activity-icon.blue", {background:"#8ed4f5"});
+    setStyles(".activity-icon.yellow", {background:"#ffda17"});
+    setStyles(".activity-icon.orange", {background:"#ff4a1f"});
+    setStyles(".activity strong", {display:"block", fontSize:"9px", marginBottom:"3px"});
+    setStyles(".activity small", {display:"block", fontSize:"8px", color:"#85828a"});
+    setStyles(".activity time", {fontSize:"8px", color:"#8b8890", whiteSpace:"nowrap"});
+
+    // Search filters the book list as the user types.
+    const searchInput = document.querySelector("#searchInput");
+    const bookRows = [...document.querySelectorAll("#bookTable tbody tr")];
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      bookRows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(query) ? "" : "none";
+      });
+    });
+
+    // Demo navigation selection.
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        document.querySelectorAll(".nav-link").forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Responsive adjustments are handled by JavaScript instead of CSS media queries.
+    function adjustLayout() {
+      const mobile = window.innerWidth <= 700;
+      const tablet = window.innerWidth <= 900;
+      style("#sidebar", mobile ? {width:"66px",flex:"0 0 66px"} : tablet ? {width:"175px",flex:"0 0 175px"} : {width:"215px",flex:"0 0 215px"});
+      setStyles("#brand > div:nth-child(2)", {display:mobile ? "none" : "block"});
+      setStyles(".nav-link", mobile ? {justifyContent:"center",padding:"0"} : {justifyContent:"flex-start",padding:"0 18px"});
+      setStyles(".nav-link", {fontSize:mobile ? "0" : "12px"});
+      setStyles(".nav-link span", {fontSize:"22px"});
+      style("#sidebarFooter", mobile ? {justifyContent:"center",padding:"18px 5px"} : {justifyContent:"flex-start",padding:"22px 20px"});
+      setStyles("#sidebarFooter div", {display:mobile ? "none" : "block"});
+      style("#content", {padding:mobile ? "22px 14px" : tablet ? "22px 20px" : "30px"});
+      style("#topbar", {padding:mobile ? "0 14px" : "0 27px",height:mobile ? "68px" : "81px"});
+      style("#lowerGrid", {gridTemplateColumns:mobile ? "minmax(0,1fr)" : "minmax(0,1.25fr) minmax(220px,.8fr)",gap:mobile ? "25px" : "32px"});
+      style("#stats", {gridTemplateColumns:mobile ? "repeat(2,minmax(0,1fr))" : "repeat(4,minmax(0,1fr))",gap:mobile ? "20px 10px" : "17px"});
+      style("#welcome", {flexDirection:mobile ? "column" : "row"});
+      style("#quickArea", {width:mobile ? "100%" : "auto",justifyContent:mobile ? "space-between" : "flex-start",gap:tablet ? "15px" : "30px"});
+      style("#quickActions", {gap:tablet ? "10px" : "20px"});
+      setStyles("#bookTable th", {fontSize:mobile ? "8px" : "9px",padding:mobile ? "0 3px 8px" : "0 7px 9px"});
+      setStyles("#bookTable td", {fontSize:mobile ? "8px" : "9px",padding:mobile ? "7px 3px" : "7px"});
+    }
+    window.addEventListener("resize", adjustLayout);
+    adjustLayout();
+  </script>
+</body>
+</html>

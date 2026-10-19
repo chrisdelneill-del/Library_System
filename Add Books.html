@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | Add New Books</title>
+<style>
+:root{--wine:#4b0809;--wine-dark:#2c0506;--ink:#29252b;--muted:#898492;--lav:#aaa3d3;--line:#eee9eb}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:#fff;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:#fff;background:linear-gradient(90deg,#0003,transparent 70%),linear-gradient(180deg,var(--wine-dark),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:9px;padding:15px 17px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;display:grid;place-items:center;color:#f8bd48;font-weight:bold;font-size:21px;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 18px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:22px 18px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}
+main{flex:1;min-width:0;background:#fff}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 30px;border-bottom:1px solid #f1eff0}
+.search{width:min(350px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar-small{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 31px 24px}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--lav);font-size:11px}
+.book-form{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(220px,1fr) minmax(220px,1fr);column-gap:36px;row-gap:18px;margin-top:49px}
+.cover-column{grid-row:1 / span 4;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:1px}
+.cover-column>label{font-size:12px;font-weight:bold;margin-bottom:43px}
+.book-illustration{height:92px;display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-bottom:18px}
+.book-illustration span{display:flex;align-items:center;justify-content:center;width:23px;border-radius:3px 3px 0 0;background:#8d1c1c;color:white;writing-mode:vertical-rl;transform:rotate(180deg);font-weight:bold;font-size:10px;box-shadow:inset -3px 0 #ffffff20}
+.book-illustration span:nth-child(1){height:82px}.book-illustration span:nth-child(2){height:75px;background:#a52420}.book-illustration span:nth-child(3){height:69px;background:#741313}
+.upload-title{font-size:12px;font-weight:bold;margin-bottom:7px}
+.upload-hint{font-size:11px;line-height:1.5;color:#77717d}
+.upload-icon{font-size:22px;color:#171317;margin-top:46px}
+.file-input{margin-top:12px;max-width:185px;font-size:10px}
+.field{min-width:0;margin-bottom:1px}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:10px;color:#28242a}
+.required{color:#a51c20}
+.field input,.field select,.field textarea{width:100%;border:0;border-bottom:1px solid #e5e0e3;border-radius:0;background:#fff;padding:5px 0;color:#333;font:12px Arial;outline:none}
+.field input,.field select{height:30px}
+.field textarea{height:70px;resize:vertical;line-height:1.45}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom:1px solid #7e1719}
+.field input::placeholder,.field textarea::placeholder{color:#9b969f}
+.field .inline-icon{font-size:13px;margin-right:7px;color:#4f4951}
+.field-row{display:flex;align-items:center;gap:7px;color:#37323a;font-size:12px;min-height:19px}
+.field-row input,.field-row select{flex:1;min-width:0}
+.actions{display:flex;justify-content:flex-end;gap:14px;margin-top:59px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 19px;height:42px;min-width:125px;border-radius:7px;cursor:pointer;font-size:11px}
+.btn-outline{border:1px solid #8d5b5d;background:#fff;color:#713234}.btn-primary{border:1px solid var(--wine);background:var(--wine);color:#fff}
+.btn:hover{filter:brightness(.96)}
+.message{min-height:16px;margin-top:12px;color:#4c8048;font-size:11px;text-align:right}
+#coverPreview{display:none;width:90px;height:100px;object-fit:cover;border-radius:5px;margin:0 auto 14px}
+@media(max-width:1050px){.sidebar{width:175px;flex-basis:175px}.content{padding:20px}.book-form{column-gap:22px;grid-template-columns:minmax(180px,.7fr) minmax(190px,1fr) minmax(190px,1fr)}}
+@media(max-width:800px){.book-form{grid-template-columns:1fr 1fr;gap:24px}.cover-column{grid-row:1 / span 3}.actions{margin-top:35px}.upload-icon{margin-top:28px}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:19px 14px}.book-form{grid-template-columns:1fr;gap:22px;margin-top:30px}.cover-column{grid-row:auto}.cover-column>label{margin-bottom:25px}.upload-icon{margin-top:22px}.actions{flex-direction:column-reverse;margin-top:28px}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#" class="active"><span class="ico">▣</span>Books</a>
+      <a href="#"><span class="ico">♟</span>Members</a>
+      <a href="#"><span class="ico">↶</span>Returning</a>
+      <a href="#"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span style="font-size:21px">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input type="search" placeholder="Hinted search text" aria-label="Search"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar-small">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <h1>Add New Books</h1>
+      <p class="subtitle">Enter book details to add a title to the digital library.</p>
+
+      <form id="bookForm">
+        <div class="book-form">
+          <div class="cover-column">
+            <label for="cover">Book Cover</label>
+            <img id="coverPreview" alt="Book cover preview">
+            <div class="book-illustration" id="defaultCover" aria-hidden="true"><span>PCC</span><span>BOOK</span><span>LIB</span></div>
+            <div class="upload-title">Upload Book Cover</div>
+            <div class="upload-hint">Drag and drop an image here<br>or click to browse</div>
+            <div class="upload-hint" style="margin-top:7px">PNG, JPG or JPEG (Max 5MB)</div>
+            <div class="upload-icon">☁</div>
+            <input class="file-input" type="file" id="cover" name="cover" accept="image/png,image/jpeg">
+          </div>
+
+          <div class="field">
+            <label for="title">Book Title <span class="required">*</span></label>
+            <input id="title" name="title" placeholder="e.g. Clean Code" required>
+          </div>
+          <div class="field">
+            <label for="author">Author <span class="required">*</span></label>
+            <input id="author" name="author" placeholder="e.g. Robert C. Martin" required>
+          </div>
+
+          <div class="field">
+            <label for="isbn">ISBN <span class="required">*</span></label>
+            <input id="isbn" name="isbn" placeholder="e.g. 978-0000000000" required>
+          </div>
+          <div class="field">
+            <label for="category">Category <span class="required">*</span></label>
+            <select id="category" name="category" required>
+              <option value="Fiction">Fiction</option><option>Non-Fiction</option><option>Technology</option><option>Science</option><option>History</option><option>Romance</option><option>Motivation</option><option>Education</option><option>Reference</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="publisher">Publisher <span class="required">*</span></label>
+            <input id="publisher" name="publisher" placeholder="e.g. Prentice Hall" required>
+          </div>
+          <div class="field">
+            <label for="year">Publication Year <span class="required">*</span></label>
+            <input id="year" name="year" type="number" min="1000" max="2100" placeholder="e.g. 2025" required>
+          </div>
+
+          <div class="field">
+            <label for="edition">Edition</label>
+            <input id="edition" name="edition" placeholder="e.g. 1st Edition">
+          </div>
+          <div class="field">
+            <label for="description">Book Description <span class="required">*</span></label>
+            <textarea id="description" name="description" placeholder="Enter a short description of the book..." required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="quantity">Quantity <span class="required">*</span></label>
+            <input id="quantity" name="quantity" type="number" min="1" value="1" required>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="reset" class="btn btn-outline" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary"><span style="font-size:17px">⊕</span>Add Book</button>
+        </div>
+        <p class="message" id="message" role="status"></p>
+      </form>
+    </section>
+  </main>
+</div>
+<script>
+const form=document.getElementById('bookForm');
+const message=document.getElementById('message');
+const coverInput=document.getElementById('cover');
+const coverPreview=document.getElementById('coverPreview');
+const defaultCover=document.getElementById('defaultCover');
+
+coverInput.addEventListener('change',()=>{
+  const file=coverInput.files[0];
+  if(!file){coverPreview.style.display='none';defaultCover.style.display='flex';return}
+  if(!['image/png','image/jpeg'].includes(file.type)){
+    message.textContent='Please choose a PNG or JPG image.';
+    coverInput.value='';return;
+  }
+  if(file.size>5*1024*1024){
+    message.textContent='Cover image must be 5MB or smaller.';
+    coverInput.value='';return;
+  }
+  coverPreview.src=URL.createObjectURL(file);
+  coverPreview.style.display='block';
+  defaultCover.style.display='none';
+  message.textContent='';
+});
+form.addEventListener('submit',event=>{
+  event.preventDefault();
+  if(!form.reportValidity())return;
+  const data=Object.fromEntries(new FormData(form).entries());
+  message.textContent=`"${data.title}" is ready to be added to the library. Demo only — connect a database to save this book.`;
+});
+document.getElementById('cancelBtn').addEventListener('click',()=>{
+  message.textContent='Form cleared.';
+  coverPreview.style.display='none';
+  coverPreview.removeAttribute('src');
+  defaultCover.style.display='flex';
+});
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  document.querySelectorAll('.nav a').forEach(item=>item.classList.remove('active'));
+  link.classList.add('active');
+}));
+</script>
+</body>
+</html>

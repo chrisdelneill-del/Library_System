@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | All Books</title>
+<style>
+:root{--wine:#4b0809;--wine-dark:#2c0506;--ink:#28242a;--muted:#8c8798;--lav:#aaa3d3;--line:#f0edef}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:#fff;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:#fff;background:linear-gradient(90deg,#0003,transparent 70%),linear-gradient(180deg,var(--wine-dark),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:9px;padding:15px 17px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;display:grid;place-items:center;color:#f8bd48;font-weight:bold;font-size:21px;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 18px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:22px 18px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}
+main{flex:1;min-width:0;background:#fff}.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 30px;border-bottom:1px solid #f1eff0}
+.search{width:min(350px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 31px 18px}.heading{display:flex;justify-content:space-between;align-items:flex-start}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--lav);font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:29px 0 35px}
+.stat{display:flex;align-items:center;gap:12px;min-width:0}
+.stat-icon{width:52px;height:52px;flex:0 0 52px;border-radius:50%;display:grid;place-items:center;color:white;font-size:24px;font-weight:bold}
+.stat-icon.wine{background:#80191c}.stat-icon.green{background:#367a4d}.stat-icon.yellow{background:#ffd51c}.stat-icon.purple{background:#a04fff}
+.stat-label{font-size:10px;color:#898492;white-space:nowrap}.stat-number{font-size:23px;line-height:1.05;font-weight:bold;color:#222}.stat-note{font-size:10px;color:#a09ba8;margin-top:2px}
+.section-title{font-size:13px;font-weight:bold;margin:0 0 10px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+.search-small{width:300px;height:34px}
+.filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+select{height:26px;min-width:140px;border:1px solid #aaa5ab;border-radius:3px;background:white;color:#5b5660;font:10px Arial;padding:3px 7px}
+.table-wrap{width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:10px}
+thead th{text-align:left;font-weight:400;color:#716b76;padding:10px 7px;border-bottom:1px solid #f0edef}
+tbody td{padding:10px 7px;border-bottom:1px solid #f6f3f4;color:#5e5962}
+tbody tr:hover{background:#fcf9f9}
+.cover{width:25px;height:33px;border-radius:4px;display:grid;place-items:center;color:#fff;font-size:16px;box-shadow:0 1px 3px #0002}
+.one{background:linear-gradient(135deg,#273e37,#91a68b)}.two{background:linear-gradient(135deg,#f15b53,#f8b0a7)}.three{background:linear-gradient(135deg,#233f68,#5b8bb6)}.four{background:linear-gradient(135deg,#7a777a,#b2a2a6)}.five{background:linear-gradient(135deg,#126d82,#74bac4)}.six{background:linear-gradient(135deg,#005e51,#54a28b)}.seven{background:linear-gradient(135deg,#006a27,#61d94d)}
+.book-title{font-weight:bold;color:#302c32}.availability{font-size:10px}.available{color:#438a54}.checked{color:#e1b92c}
+.more{border:0;background:none;color:#4c474e;cursor:pointer;font-size:17px;padding:0 3px}.more:hover{color:#8a171b}
+.bottom{display:flex;justify-content:space-between;align-items:center;color:#a39ccf;font-size:10px;margin-top:22px}.pagination{display:flex;align-items:center;gap:6px;color:#77717d}.pagination button{border:1px solid #ddd7db;background:#fff;border-radius:3px;min-width:20px;height:20px;color:#77717d;cursor:pointer}
+.message{min-height:15px;margin-top:10px;color:#4c8048;font-size:11px}
+@media(max-width:1050px){.stats{gap:10px}.stat{gap:8px}.stat-icon{width:43px;height:43px;flex-basis:43px;font-size:21px}.stat-number{font-size:20px}.content{padding:20px}.search-small{width:240px}}
+@media(max-width:800px){.sidebar{width:175px;flex-basis:175px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:18px;margin-bottom:28px}.toolbar{align-items:flex-start;flex-direction:column}.filters{width:100%}.search-small{width:100%}.table-wrap table{min-width:760px}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:19px 13px}.stats{gap:17px 10px}.stat-icon{width:38px;height:38px;flex-basis:38px;font-size:18px}.stat-label{font-size:9px}.stat-number{font-size:18px}.stat-note{font-size:9px}.filters{gap:8px}.filters select{flex:1;min-width:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#" class="active"><span class="ico">▣</span>Books</a>
+      <a href="#"><span class="ico">♟</span>Members</a>
+      <a href="#"><span class="ico">↶</span>Returning</a>
+      <a href="#"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span style="font-size:21px">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input id="topSearch" type="search" placeholder="Hinted search text" aria-label="Search books"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <div class="heading"><div><h1>All books</h1><p class="subtitle">Browse and manage your library collection.</p></div></div>
+
+      <section class="stats" aria-label="Library summary">
+        <div class="stat"><div class="stat-icon wine">▤</div><div><div class="stat-label">Total Books</div><div class="stat-number">1,221</div></div></div>
+        <div class="stat"><div class="stat-icon green">♟</div><div><div class="stat-label">Total Members</div><div class="stat-number">456</div></div></div>
+        <div class="stat"><div class="stat-icon yellow">⟳</div><div><div class="stat-label">Books Borrowed</div><div class="stat-number">67</div></div></div>
+        <div class="stat"><div class="stat-icon purple">▦</div><div><div class="stat-label">Overdue Books</div><div class="stat-number">13</div></div></div>
+      </section>
+
+      <h2 class="section-title">Book Collection</h2>
+      <div class="toolbar">
+        <label class="search search-small"><span>☰</span><input id="bookSearch" type="search" placeholder="Hinted search text" aria-label="Search book collection"><span>⌕</span></label>
+        <div class="filters">
+          <select id="categoryFilter" aria-label="Filter by category"><option value="">All Categories</option><option>Fiction</option><option>Motivation</option><option>Romance</option><option>Non-Fiction</option><option>Digital Fiction</option></select>
+          <select id="availabilityFilter" aria-label="Filter by availability"><option value="">All Statuses</option><option value="Available">Available</option><option value="Checked Out">Checked Out</option></select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="bookRows">
+            <tr data-title="Wallflower" data-category="Fiction" data-status="Available"><td><div class="cover one">▤</div></td><td class="book-title">Wallflower</td><td>Tara Hudson</td><td>Fiction</td><td class="availability available">Available</td><td><button class="more" aria-label="More options for Wallflower" data-title="Wallflower">⋮</button></td></tr>
+            <tr data-title="Sunrise" data-category="Motivation" data-status="Available"><td><div class="cover two">▤</div></td><td class="book-title">Sunrise</td><td>Jay Koushi</td><td>Motivation</td><td class="availability available">Available</td><td><button class="more" aria-label="More options for Sunrise" data-title="Sunrise">⋮</button></td></tr>
+            <tr data-title="The Great Gatsby" data-category="Romance" data-status="Available"><td><div class="cover three">▤</div></td><td class="book-title">The Great Gatsby</td><td>Jasper Hill</td><td>Romance</td><td class="availability available">Available</td><td><button class="more" aria-label="More options for The Great Gatsby" data-title="The Great Gatsby">⋮</button></td></tr>
+            <tr data-title="Becoming" data-category="Non-Fiction" data-status="Checked Out"><td><div class="cover four">▤</div></td><td class="book-title">Becoming</td><td>Michelle Obama</td><td>Non-Fiction</td><td class="availability checked">Checked Out</td><td><button class="more" aria-label="More options for Becoming" data-title="Becoming">⋮</button></td></tr>
+            <tr data-title="A Far-Seeing Life" data-category="Fiction" data-status="Available"><td><div class="cover five">▤</div></td><td class="book-title">A Far-Seeing Life</td><td>M.J. Scher</td><td>Fiction</td><td class="availability available">Available</td><td><button class="more" aria-label="More options for A Far-Seeing Life" data-title="A Far-Seeing Life">⋮</button></td></tr>
+            <tr data-title="The Enlightening Truth" data-category="Digital Fiction" data-status="Available"><td><div class="cover six">▤</div></td><td class="book-title">The Enlightening Truth</td><td>R. Nivian</td><td>Digital Fiction</td><td class="availability available">Available</td><td><button class="more" aria-label="More options for The Enlightening Truth" data-title="The Enlightening Truth">⋮</button></td></tr>
+            <tr data-title="Game On" data-category="Fiction" data-status="Checked Out"><td><div class="cover seven">▤</div></td><td class="book-title">Game On</td><td>Vanessa Allen</td><td>Fiction</td><td class="availability checked">Checked Out</td><td><button class="more" aria-label="More options for Game On" data-title="Game On">⋮</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bottom"><span id="resultCount">Showing 1–7 of 1,221 books</span><div class="pagination"><button aria-label="Previous page">‹</button><button>1</button><button>2</button><button>3</button><button>4</button><button aria-label="Next page">›</button></div></div>
+      <p class="message" id="message" role="status"></p>
+    </section>
+  </main>
+</div>
+<script>
+const rows=[...document.querySelectorAll('#bookRows tr')];
+const categoryFilter=document.getElementById('categoryFilter');
+const availabilityFilter=document.getElementById('availabilityFilter');
+const bookSearch=document.getElementById('bookSearch');
+const topSearch=document.getElementById('topSearch');
+const message=document.getElementById('message');
+
+function filterBooks(){
+  const category=categoryFilter.value.toLowerCase();
+  const status=availabilityFilter.value.toLowerCase();
+  const query=(bookSearch.value||topSearch.value).trim().toLowerCase();
+  let count=0;
+  rows.forEach(row=>{
+    const matchesCategory=!category||row.dataset.category.toLowerCase()===category;
+    const matchesStatus=!status||row.dataset.status.toLowerCase()===status;
+    const matchesQuery=!query||row.innerText.toLowerCase().includes(query);
+    row.hidden=!(matchesCategory&&matchesStatus&&matchesQuery);
+    if(!row.hidden)count++;
+  });
+  document.getElementById('resultCount').textContent=`Showing ${count?1:0}–${count} of ${count} books`;
+}
+categoryFilter.addEventListener('change',filterBooks);
+availabilityFilter.addEventListener('change',filterBooks);
+bookSearch.addEventListener('input',()=>{topSearch.value='';filterBooks()});
+topSearch.addEventListener('input',()=>{bookSearch.value='';filterBooks()});
+document.querySelectorAll('.more').forEach(button=>button.addEventListener('click',()=>{
+  message.textContent=`Book selected: ${button.dataset.title}. More actions can be connected here.`;
+}));
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  document.querySelectorAll('.nav a').forEach(item=>item.classList.remove('active'));
+  link.classList.add('active');
+}));
+document.querySelectorAll('.pagination button').forEach(button=>button.addEventListener('click',()=>{
+  message.textContent=`Page ${button.textContent.trim()||'selected'} selected (demo only).`;
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCC Digital Library | Borrowing Books</title>
+<style>
+:root{--wine:#4b0809;--wine-dark:#2c0506;--ink:#28242a;--muted:#8c8798;--lav:#aaa3d3;--line:#f0edef}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f3f4;color:var(--ink);font:12px Arial,Helvetica,sans-serif}
+.app{display:flex;min-height:100vh;background:white;overflow:hidden}
+.sidebar{width:212px;flex:0 0 212px;display:flex;flex-direction:column;color:white;background:linear-gradient(90deg,#0003,transparent 70%),linear-gradient(180deg,var(--wine-dark),var(--wine) 55%,#350607);border-right:2px solid #c8c4c4}
+.brand{display:flex;align-items:center;gap:9px;padding:15px 17px 18px;min-height:91px;border-bottom:1px solid #ffffff12}
+.logo{width:37px;height:37px;border:3px solid #d9412e;outline:1px solid #f4b442;border-radius:50%;display:grid;place-items:center;color:#f8bd48;font-weight:bold;font-size:21px;text-shadow:0 1px 2px #000}
+.brand strong{display:block;font-size:18px;line-height:1.05;letter-spacing:.4px}.brand small{font-size:9px;letter-spacing:.7px}
+.nav a{height:46px;display:flex;align-items:center;gap:17px;padding:0 18px;color:#f8eeee;text-decoration:none;border-bottom:1px solid #0002;font-size:11px}
+.nav a:hover,.nav a.active{background:#0003}.nav .ico{width:20px;text-align:center;font-size:19px}
+.sidebar-footer{margin-top:auto;padding:22px 18px;min-height:111px;border-top:2px solid #ffffff9c;display:flex;gap:13px;align-items:flex-start;font-size:10px;line-height:1.5;color:#eee5e5}
+main{flex:1;min-width:0;background:#fff}.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 27px 0 30px;border-bottom:1px solid #f1eff0}
+.search{width:min(350px,48%);height:37px;border:1px solid #c9c6cb;background:#f8f7f9;border-radius:24px;display:flex;align-items:center;gap:9px;padding:0 14px;color:#aaa7b2}
+.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px}
+.top-actions{display:flex;align-items:center;gap:24px}.bell{position:relative;font-size:23px}.bell:after{content:"";position:absolute;top:1px;right:-1px;width:7px;height:7px;border-radius:50%;background:#d9232e}
+.profile{display:flex;align-items:center;gap:7px}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#7b171b;color:white;border:2px solid #d6c4c4;font-size:18px}.profile small{font-size:10px}
+.content{padding:22px 31px 18px}.heading{display:flex;justify-content:space-between;align-items:flex-start}
+h1{font-size:27px;margin:0 0 3px;letter-spacing:-.5px}.subtitle{margin:0;color:var(--lav);font-size:11px}.books-art{font-size:38px;margin:-8px 3px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:29px 0 12px}
+.stat{display:flex;align-items:center;gap:12px;min-width:0}
+.stat-icon{width:52px;height:52px;flex:0 0 52px;border-radius:50%;display:grid;place-items:center;color:white;font-size:24px;font-weight:bold}
+.stat-icon.wine{background:#80191c}.stat-icon.green{background:#367a4d}.stat-icon.yellow{background:#ffd51c;color:white}.stat-icon.purple{background:#a04fff}
+.stat-label{font-size:10px;color:#898492;white-space:nowrap}.stat-number{font-size:23px;line-height:1.05;font-weight:bold;color:#222}.stat-note{font-size:10px;color:#a09ba8;margin-top:2px}
+.section-title{font-size:13px;font-weight:bold;margin:0 0 9px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+.filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.filters .search{width:300px;height:34px}
+select{height:26px;min-width:140px;border:1px solid #aaa5ab;border-radius:3px;background:white;color:#5b5660;font:10px Arial;padding:3px 7px}
+.table-wrap{width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:10px}
+thead th{text-align:left;font-weight:400;color:#716b76;padding:10px 7px;border-bottom:1px solid #f0edef}
+tbody td{padding:10px 7px;border-bottom:1px solid #f6f3f4;color:#5e5962}
+tbody tr:hover{background:#fcf9f9}.cover{width:25px;height:33px;border-radius:4px;display:grid;place-items:center;color:#fff;font-size:16px;box-shadow:0 1px 3px #0002}
+.one{background:linear-gradient(135deg,#273e37,#91a68b)}.two{background:linear-gradient(135deg,#f15b53,#f8b0a7)}.three{background:linear-gradient(135deg,#233f68,#5b8bb6)}.four{background:linear-gradient(135deg,#7a777a,#b2a2a6)}.five{background:linear-gradient(135deg,#126d82,#74bac4)}.six{background:linear-gradient(135deg,#005e51,#54a28b)}
+.book-title{font-weight:bold;color:#302c32}.status{font-size:10px}.status.returned{color:#438a54}.status.borrowed{color:#69b2d6}.status.overdue{color:#d76b4b}
+.action{border:0;background:none;color:#9b4143;cursor:pointer;font-size:10px;padding:3px}.action:hover{text-decoration:underline}
+.bottom{display:flex;justify-content:space-between;align-items:center;color:#a39ccf;font-size:10px;margin-top:22px}.pagination{display:flex;align-items:center;gap:6px;color:#77717d}.pagination button{border:1px solid #ddd7db;background:#fff;border-radius:3px;min-width:20px;height:20px;color:#77717d;cursor:pointer}
+.message{min-height:15px;margin-top:10px;color:#4c8048;font-size:11px}
+@media(max-width:1050px){.stats{gap:10px}.stat{gap:8px}.stat-icon{width:43px;height:43px;flex-basis:43px;font-size:21px}.stat-number{font-size:20px}.content{padding:20px}.filters .search{width:230px}}
+@media(max-width:800px){.sidebar{width:175px;flex-basis:175px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:18px}.toolbar{align-items:flex-start;flex-direction:column}.filters{width:100%}.filters .search{flex:1}.table-wrap table{min-width:850px}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;min-height:auto}.brand{min-height:62px;padding:10px 14px}.logo{width:32px;height:32px}.brand strong{font-size:15px}.nav{display:flex;overflow-x:auto}.nav a{flex:0 0 auto;padding:0 12px;height:42px;gap:8px}.sidebar-footer{display:none}.topbar{height:56px;padding:0 14px}.search{width:62%;height:33px}.top-actions{gap:12px}.content{padding:19px 13px}.stats{gap:17px 10px}.stat-icon{width:38px;height:38px;flex-basis:38px;font-size:18px}.stat-label{font-size:9px}.stat-number{font-size:18px}.stat-note{font-size:9px}.filters{gap:8px}.filters .search{width:100%;flex-basis:100%}.filters select{flex:1;min-width:0}.books-art{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">P</div><div><strong>PCC</strong><small>DIGITAL LIBRARY</small></div></div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#"><span class="ico">◆</span>Home</a>
+      <a href="#"><span class="ico">▣</span>Books</a>
+      <a href="#"><span class="ico">♟</span>Members</a>
+      <a href="#"><span class="ico">↶</span>Returning</a>
+      <a href="#" class="active"><span class="ico">▤</span>Borrowing</a>
+      <a href="#"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer"><span style="font-size:21px">▣</span><span>Better Readers,<br>Build a Brighter<br>Future!</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <label class="search"><span>☰</span><input id="topSearch" type="search" placeholder="Hinted search text" aria-label="Search"><span>⌕</span></label>
+      <div class="top-actions"><span class="bell" aria-label="Notifications">♧</span><div class="profile"><span class="avatar">●</span><small>Profile　⌄</small></div></div>
+    </header>
+
+    <section class="content">
+      <div class="heading">
+        <div><h1>Borrowing Books</h1><p class="subtitle">View and manage all book borrowing records</p></div>
+        <div class="books-art" aria-hidden="true">📚</div>
+      </div>
+
+      <section class="stats" aria-label="Borrowing summary">
+        <div class="stat"><div class="stat-icon wine">▤</div><div><div class="stat-label">Total Borrowings</div><div class="stat-number" id="totalBorrowings">91</div><div class="stat-note">This month</div></div></div>
+        <div class="stat"><div class="stat-icon green">♟</div><div><div class="stat-label">Active Members</div><div class="stat-number">320</div><div class="stat-note">Registered Users</div></div></div>
+        <div class="stat"><div class="stat-icon yellow">◷</div><div><div class="stat-label">Overdue Books</div><div class="stat-number">12</div><div class="stat-note">Need Attention</div></div></div>
+        <div class="stat"><div class="stat-icon purple">▦</div><div><div class="stat-label">Returned Books</div><div class="stat-number">44</div><div class="stat-note">This Month</div></div></div>
+      </section>
+
+      <h2 class="section-title">Borrowing Records</h2>
+      <div class="toolbar">
+        <label class="search"><span>☰</span><input id="recordSearch" type="search" placeholder="Hinted search text" aria-label="Search borrowing records"><span>⌕</span></label>
+        <div class="filters">
+          <select id="memberFilter" aria-label="Filter members"><option value="">All Members</option><option>John</option><option>Jay</option><option>Ulee</option><option>Elis</option><option>Alex Nia</option><option>Wesley</option></select>
+          <select id="bookFilter" aria-label="Filter books"><option value="">All Books</option><option>White Nights</option><option>Sunrise</option><option>The Great Gatsby</option><option>Becoming</option><option>A Far-Seeing Life</option><option>The Beginning of Truth</option></select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Book Cover</th><th>Title</th><th>Member</th><th>Borrowed Date</th><th>Due Date</th><th>Return Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="recordRows">
+            <tr data-member="John" data-book="White Nights"><td>BR-001</td><td><div class="cover one">▤</div></td><td class="book-title">White Nights</td><td>John</td><td>September 5, 2025</td><td>September 12, 2025</td><td>September 12, 2025</td><td class="status borrowed">Borrowed</td><td><button class="action" data-id="BR-001">⊙ View</button></td></tr>
+            <tr data-member="Jay" data-book="Sunrise"><td>BR-002</td><td><div class="cover two">▤</div></td><td class="book-title">Sunrise</td><td>Jay</td><td>September 6, 2025</td><td>September 13, 2025</td><td>September 13, 2025</td><td class="status borrowed">Borrowed</td><td><button class="action" data-id="BR-002">⊙ View</button></td></tr>
+            <tr data-member="Ulee" data-book="The Great Gatsby"><td>BR-003</td><td><div class="cover three">▤</div></td><td class="book-title">The Great Gatsby</td><td>Ulee</td><td>September 6, 2025</td><td>September 20, 2025</td><td>September 20, 2025</td><td class="status returned">Returned</td><td><button class="action" data-id="BR-003">⊙ View</button></td></tr>
+            <tr data-member="Elis" data-book="Becoming"><td>BR-004</td><td><div class="cover four">▤</div></td><td class="book-title">Becoming</td><td>Elis</td><td>September 6, 2025</td><td>September 13, 2025</td><td>September 13, 2025</td><td class="status borrowed">Borrowed</td><td><button class="action" data-id="BR-004">⊙ View</button></td></tr>
+            <tr data-member="Alex Nia" data-book="A Far-Seeing Life"><td>BR-005</td><td><div class="cover five">▤</div></td><td class="book-title">A Far-Seeing Life</td><td>Alex Nia</td><td>September 8, 2025</td><td>September 15, 2025</td><td>September 15, 2025</td><td class="status returned">Returned</td><td><button class="action" data-id="BR-005">⊙ View</button></td></tr>
+            <tr data-member="Wesley" data-book="The Beginning of Truth"><td>BR-006</td><td><div class="cover six">▤</div></td><td class="book-title">The Beginning of Truth</td><td>Wesley</td><td>September 9, 2025</td><td>September 16, 2025</td><td>September 16, 2025</td><td class="status returned">Returned</td><td><button class="action" data-id="BR-006">⊙ View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bottom"><span id="resultCount">Showing 1–6 of 6 books</span><div class="pagination"><button aria-label="Previous page">‹</button><button>1</button><button>2</button><button>3</button><button aria-label="Next page">›</button></div></div>
+      <p class="message" id="message" role="status"></p>
+    </section>
+  </main>
+</div>
+<script>
+const rows=[...document.querySelectorAll('#recordRows tr')];
+const memberFilter=document.getElementById('memberFilter');
+const bookFilter=document.getElementById('bookFilter');
+const recordSearch=document.getElementById('recordSearch');
+const topSearch=document.getElementById('topSearch');
+const message=document.getElementById('message');
+
+function filterRecords(){
+  const member=memberFilter.value.toLowerCase();
+  const book=bookFilter.value.toLowerCase();
+  const query=(recordSearch.value||topSearch.value).trim().toLowerCase();
+  let count=0;
+  rows.forEach(row=>{
+    const matchMember=!member||row.dataset.member.toLowerCase()===member;
+    const matchBook=!book||row.dataset.book.toLowerCase()===book;
+    const matchQuery=!query||row.innerText.toLowerCase().includes(query);
+    row.hidden=!(matchMember&&matchBook&&matchQuery);
+    if(!row.hidden)count++;
+  });
+  document.getElementById('resultCount').textContent=`Showing ${count?1:0}–${count} of ${count} books`;
+}
+memberFilter.addEventListener('change',filterRecords);
+bookFilter.addEventListener('change',filterRecords);
+recordSearch.addEventListener('input',()=>{topSearch.value='';filterRecords()});
+topSearch.addEventListener('input',()=>{recordSearch.value='';filterRecords()});
+document.querySelectorAll('.action').forEach(button=>button.addEventListener('click',()=>{
+ const row=button.closest('tr');
+ message.textContent=`Borrowing record ${button.dataset.id}: ${row.dataset.book} borrowed by ${row.dataset.member}. Demo view only.`;
+}));
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',event=>{
+ event.preventDefault();
+ document.querySelectorAll('.nav a').forEach(item=>item.classList.remove('active'));
+ link.classList.add('active');
+}));
+document.querySelectorAll('.pagination button').forEach(button=>button.addEventListener('click',()=>{
+ message.textContent=`Page ${button.textContent.trim()||'selected'} selected (demo only).`;
+}));
+</script>
+</body>
+</html>
