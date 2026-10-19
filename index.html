@@ -98,6 +98,10 @@
       set("#decorWave",{fontSize:small?"130px":"220px"});
     }
     window.addEventListener("resize",resizeLogin); resizeLogin();
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    window.location.href = "Home.html";
+  });
   </script>
 </body>
 </html>
